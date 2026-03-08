@@ -3,62 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מרכז הלמידה הדיגיטלי | שיעור ביטחון ואמונה</title>
+    <title>מרכז הלמידה הדיגיטלי</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --accent: #27ae60;
-            --bg: #f8f9fa;
-            --text: #333;
-            --white: #ffffff;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
-        header { background: linear-gradient(135deg, var(--primary), #34495e); color: var(--white); padding: 50px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        header h1 { margin: 0; font-size: 2.2rem; }
-        .main-container { max-width: 1150px; margin: 30px auto; display: grid; grid-template-columns: 2fr 1fr; gap: 25px; padding: 0 20px; }
-        .content-area { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; border-radius: 10px; margin-bottom: 25px; }
-        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        .card h3 { margin-top: 0; border-bottom: 3px solid var(--accent); padding-bottom: 12px; color: var(--primary); }
+        :root { --primary: #2c3e50; --accent: #27ae60; --bg: #f8f9fa; }
+        body { font-family: sans-serif; background-color: var(--bg); margin: 0; padding: 20px; line-height: 1.6; }
+        .main-container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; border-radius: 10px; margin-top: 20px; }
+        .video-box iframe { position: absolute; width: 100%; height: 100%; border: none; }
         input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .btn-submit { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; }
-        .btn-submit:hover { background: #219150; }
-        @media (max-width: 900px) { .main-container { grid-template-columns: 1fr; } }
+        button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>שיעור: אתה יוצר את המציאות שלך!</h1>
-    <p>מסע של ביטחון, אמונה וצמיחה אישית</p>
-</header>
-
 <div class="main-container">
-    <main class="content-area">
-        <div class="video-box">
-            <iframe src="https://www.youtube.com/embed/Lo2Uw67O8XY" title="הרב יגאל כהן" allowfullscreen></iframe>
-        </div>
-        <h2>נושאי הלימוד בשיעור</h2>
-        <p>בשיעור זה נלמד כיצד המחשבה שלנו משפיעה על המציאות.</p>
-        <ul>
-            <li>כוחו של הביטחון העצמי והאמונה.</li>
-            <li>התמודדות עם פחדים.</li>
-            <li>איך להפוך קשיים למנועי צמיחה.</li>
-        </ul>
-    </main>
+    <h1>אזור צפייה בשיעורים</h1>
 
-    <aside>
-        <div class="card">
-            <h3>הצטרף לקהילת הלומדים</h3>
-            <form action="https://formspree.io/f/xzdjzneb" method="POST">
-                <input type="text" name="name" placeholder="שם מלא" required>
-                <input type="email" name="email" placeholder="אימייל" required>
-                <button type="submit" class="btn-submit">שלח פרטים</button>
-            </form>
+    <div id="login-box">
+        <p>הזן קוד גישה כדי לצפות בשיעור:</p>
+        <input type="password" id="user-pass" placeholder="הכנס קוד">
+        <button onclick="checkPassword()">צפה בשיעור</button>
+    </div>
+
+    <div id="video-area" style="display:none;">
+        <p>שלום! הנה השיעור שלך:</p>
+        <div class="video-box">
+            <iframe src="https://www.youtube.com/embed/Lo2Uw67O8XY" allowfullscreen></iframe>
         </div>
-    </aside>
+        <button onclick="location.reload()" style="background:#dc3545; margin-top:20px;">יציאה (נעילת הסרטון)</button>
+    </div>
 </div>
+
+<script>
+function checkPassword() {
+    var pass = document.getElementById("user-pass").value;
+    // כאן אתה מגדיר את הקוד שאתה רוצה
+    if (pass == "1212") { 
+        document.getElementById("video-area").style.display = "block";
+        document.getElementById("login-box").style.display = "none";
+    } else {
+        alert("קוד שגוי, נסה שנית");
+    }
+}
+</script>
 
 </body>
 </html>
