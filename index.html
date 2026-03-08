@@ -4,73 +4,60 @@
     <meta charset="UTF-8">
     <title>מרכז הלמידה - סילבוס</title>
     <style>
-        :root { --bg: #0f172a; --glass: rgba(30, 41, 59, 0.7); --accent: #6366f1; --text: #f8fafc; }
-        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, var(--bg), #1e293b); color: var(--text); margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        :root { --bg: #0f172a; --glass: rgba(30, 41, 59, 0.8); --accent: #6366f1; --text: #f8fafc; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, var(--bg), #1e293b); color: var(--text); margin: 0; padding: 20px; }
+        .main-card { max-width: 900px; margin: 50px auto; background: var(--glass); backdrop-filter: blur(10px); padding: 40px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); }
         
-        .main-card { max-width: 900px; width: 100%; background: var(--glass); backdrop-filter: blur(15px); padding: 40px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+        /* פופ-אפ (Modal) */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; }
+        .modal-content { background: #1e293b; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; }
         
-        .video-container { width: 100%; margin-top: 20px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #000; }
-        .video-container iframe { width: 100%; aspect-ratio: 16 / 9; display: block; }
-        
-        .btn-main { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; margin-top: 10px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; box-sizing: border-box; }
-        
-        #login-overlay, #video-section, #contact-section { display: none; text-align: center; }
-        /* עיצוב התמונה */
-        .syllabus-img { width: 100%; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-main { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #444; background: #0f172a; color: white; box-sizing: border-box; }
+        .syllabus-img { width: 100%; border-radius: 15px; }
     </style>
 </head>
 <body>
 
 <div class="main-card">
-    <div id="landing-page">
-        <h1>ברוכים הבאים למרכז הדיגיטלי</h1>
-        
-        <img src="mysyllabus.jpg" alt="סילבוס הקורס" class="syllabus-img">
-        
-        <button class="btn-main" onclick="showSection('login-overlay')">לכניסה לקורס</button>
-        <p style="margin-top:20px; font-size: 0.9rem; opacity:0.8;">אין לך קוד גישה? <a href="#" onclick="showSection('contact-section')" style="color:var(--accent)">שלח בקשת גישה כאן</a></p>
-    </div>
+    <h1>סילבוס הקורס המלא</h1>
+    <img src="mysyllabus.jpg" alt="סילבוס" class="syllabus-img">
+    <button class="btn-main" onclick="openModal()">כניסה לקורס</button>
+</div>
 
-    <div id="login-overlay">
-        <h3>הזן קוד גישה</h3>
-        <input type="password" id="pass-code" placeholder="הקוד הסודי שלך">
-        <button class="btn-main" onclick="checkPassword()">צפה בשיעור</button>
-        <p><a href="#" onclick="showSection('landing-page')" style="color:white; opacity:0.6;">חזור לסילבוס</a></p>
-    </div>
-
-    <div id="video-section">
-        <h2 style="margin-top:0;">צפייה נעימה!</h2>
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/Lo2Uw67O8XY" allowfullscreen></iframe>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <h2 id="modal-title">בקשת גישה</h2>
+        <div id="step-contact">
+            <p>השאר פרטים ונשלח לך קוד גישה:</p>
+            <form action="https://formspree.io/f/xzdjzneb" method="POST">
+                <input type="text" name="name" placeholder="שם מלא" required>
+                <input type="email" name="email" placeholder="אימייל" required>
+                <button type="submit" class="btn-main" style="background:#22c55e;">שלח בקשה</button>
+            </form>
+            <button class="btn-main" style="background:transparent; border:1px solid white;" onclick="showLogin()">יש לי כבר קוד!</button>
         </div>
-        <button class="btn-main" style="background:#475569;" onclick="showSection('landing-page')">חזרה לסילבוס</button>
-    </div>
 
-    <div id="contact-section">
-        <h3>בקשת גישה לקורס</h3>
-        <form action="https://formspree.io/f/xzdjzneb" method="POST">
-            <input type="text" name="name" placeholder="שם מלא" required>
-            <input type="email" name="email" placeholder="אימייל" required>
-            <button type="submit" class="btn-main" style="background:#22c55e;">שלח בקשה</button>
-        </form>
-        <p style="margin-top:20px;"><a href="#" onclick="showSection('landing-page')" style="color:white; opacity:0.6;">חזור לסילבוס</a></p>
+        <div id="step-login" style="display:none;">
+            <p>הזן את הקוד שקיבלת:</p>
+            <input type="password" id="pass-code" placeholder="הכנס קוד">
+            <button class="btn-main" onclick="checkPassword()">צפייה בשיעור</button>
+        </div>
     </div>
 </div>
 
 <script>
-function showSection(id) {
-    document.getElementById('landing-page').style.display = 'none';
-    document.getElementById('login-overlay').style.display = 'none';
-    document.getElementById('video-section').style.display = 'none';
-    document.getElementById('contact-section').style.display = 'none';
-    document.getElementById(id).style.display = 'block';
+function openModal() { document.getElementById('myModal').style.display = 'flex'; }
+function showLogin() { 
+    document.getElementById('step-contact').style.display = 'none'; 
+    document.getElementById('step-login').style.display = 'block';
+    document.getElementById('modal-title').innerText = "הזן קוד גישה";
 }
 function checkPassword() {
     if (document.getElementById('pass-code').value == "12345") {
-        showSection('video-section');
+        window.location.href = "https://www.youtube.com/embed/Lo2Uw67O8XY"; // כאן תוכל להפנות לדף צפייה
     } else {
-        alert("קוד שגוי, נסה שנית");
+        alert("קוד שגוי");
     }
 }
 </script>
