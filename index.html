@@ -2,54 +2,48 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מרכז הלמידה הדיגיטלי</title>
     <style>
         :root { --bg: #0f172a; --glass: rgba(30, 41, 59, 0.7); --accent: #6366f1; --text: #f8fafc; }
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, var(--bg), #1e293b); color: var(--text); margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
         
-        .main-card { max-width: 800px; width: 100%; background: var(--glass); backdrop-filter: blur(15px); padding: 40px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.3); text-align: center; }
+        .main-card { max-width: 900px; width: 100%; background: var(--glass); backdrop-filter: blur(15px); padding: 40px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
         
-        .syllabus { list-style: none; padding: 0; margin: 30px 0; text-align: right; }
-        .syllabus li { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 1.1rem; }
+        /* אזור הסרטון - עיצוב נקי ללא רקע שחור בולט */
+        .video-container { width: 100%; margin-top: 20px; border-radius: 20px; overflow: hidden; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .video-container iframe { width: 100%; aspect-ratio: 16 / 9; display: block; }
         
-        .btn-main { width: 100%; padding: 18px; background: var(--accent); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.2rem; font-weight: bold; transition: 0.3s; }
+        .btn-main { width: 100%; padding: 18px; background: var(--accent); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.2rem; font-weight: bold; }
+        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; box-sizing: border-box; }
         
-        /* אזורים מוסתרים */
-        #login-overlay, #video-section, #contact-section { display: none; margin-top: 30px; }
-        
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; border-radius: 15px; margin-top: 20px; }
-        .video-box iframe { position: absolute; width: 100%; height: 100%; border: none; }
-        
-        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: white; }
+        #login-overlay, #video-section, #contact-section { display: none; text-align: center; }
+        .syllabus { list-style: none; padding: 0; text-align: right; }
+        .syllabus li { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
 
 <div class="main-card">
     <div id="landing-page">
-        <h1>ברוכים הבאים לקורס ביטחון ואמונה</h1>
+        <h1>קורס ביטחון ואמונה</h1>
         <ul class="syllabus">
-            <li>✅ מודול 1: כוחה של מחשבה</li>
-            <li>✅ מודול 2: יסודות האמונה</li>
-            <li>✅ מודול 3: בניית מציאות אישית</li>
+            <li>✅ מודול 1: כוחה של מחשבה חיובית</li>
+            <li>✅ מודול 2: יסודות האמונה והביטחון</li>
         </ul>
-        <button class="btn-main" onclick="showSection('login-overlay')">כניסה לקורס</button>
-        <p style="margin-top:20px; opacity:0.7;">אין לך קוד? <a href="#" onclick="showSection('contact-section')" style="color:var(--accent)">לחץ כאן לבקשת גישה</a></p>
+        <button class="btn-main" onclick="showSection('login-overlay')">לכניסה לקורס</button>
     </div>
 
     <div id="login-overlay">
         <h3>הזן קוד גישה</h3>
-        <input type="password" id="pass-code" placeholder="הקוד הסודי שלך">
+        <input type="password" id="pass-code" placeholder="הכנס קוד">
         <button class="btn-main" onclick="checkPassword()">צפה בשיעור</button>
     </div>
 
     <div id="video-section">
-        <h3>צפייה מהנה!</h3>
-        <div class="video-box">
+        <h2 style="margin-top:0;">השיעור שלך</h2>
+        <div class="video-container">
             <iframe src="https://www.youtube.com/embed/Lo2Uw67O8XY" allowfullscreen></iframe>
         </div>
-        <button class="btn-main" style="margin-top:20px; background:#ef4444;" onclick="location.reload()">סגור וצא</button>
     </div>
 
     <div id="contact-section">
@@ -57,7 +51,7 @@
         <form action="https://formspree.io/f/xzdjzneb" method="POST">
             <input type="text" name="name" placeholder="שם מלא" required>
             <input type="email" name="email" placeholder="אימייל" required>
-            <button type="submit" class="btn-main" style="background:#22c55e;">שלח בקשה</button>
+            <button type="submit" class="btn-main">שלח בקשה</button>
         </form>
     </div>
 </div>
@@ -71,7 +65,7 @@ function showSection(id) {
     document.getElementById(id).style.display = 'block';
 }
 function checkPassword() {
-    if (document.getElementById('pass-code').value == "אני רוצה ללמוד") {
+    if (document.getElementById('pass-code').value == "12345") {
         showSection('video-section');
     } else {
         alert("קוד שגוי");
