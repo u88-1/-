@@ -7,40 +7,43 @@
         @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&display=swap');
         :root { --gold: #c5a059; --bg: #ffffff; --text: #1a1a1a; }
         
-        body { margin: 0; font-family: 'Assistant', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Assistant', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
         
-        /* רקע בועות דינמי */
+        /* רקע בועות */
         .background-bubbles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
         .bubble { position: absolute; bottom: -100px; background: rgba(197, 160, 89, 0.1); border-radius: 50%; animation: float 15s infinite ease-in-out; }
         @keyframes float { 0% { transform: translateY(0) scale(1); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
 
-        /* אנימציות גלובליות */
+        /* אנימציות */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
-        
         .fade-in { animation: fadeIn 1s ease-out forwards; }
         .transition-fade { transition: opacity 0.6s ease-in-out; opacity: 1; }
         .hidden { opacity: 0; pointer-events: none; }
 
-        .landing-container { width: 90%; max-width: 500px; text-align: center; }
-        h1 { font-size: 3rem; color: var(--gold); margin-bottom: 10px; transition: all 0.4s ease; cursor: default; }
-        h1:hover { text-shadow: 0 0 20px rgba(197, 160, 89, 0.6), 0 0 40px rgba(197, 160, 89, 0.3); transform: scale(1.02); }
-        .subtitle { font-size: 1.2rem; font-weight: 300; margin-bottom: 40px; color: #555; }
+        /* תוכן האתר */
+        .landing-container { width: 90%; max-width: 600px; text-align: center; margin-top: 10vh; }
+        h1 { font-size: 3rem; color: var(--gold); margin-bottom: 10px; transition: 0.4s; cursor: default; }
+        h1:hover { text-shadow: 0 0 20px rgba(197, 160, 89, 0.6); transform: scale(1.02); }
+        .btn { width: 100%; padding: 15px; background: var(--text); color: #fff; border: none; cursor: pointer; font-size: 1rem; border-radius: 5px; transition: 0.4s; margin-top: 10px; }
+        .btn:hover { background: var(--gold); }
         
-        input { width: 100%; padding: 20px; margin-bottom: 20px; border: 1px solid #eee; border-radius: 5px; text-align: center; font-size: 1.1rem; box-sizing: border-box; transition: 0.3s; }
-        input:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 10px rgba(197, 160, 89, 0.2); }
+        /* חלונית כניסה צפה */
+        .login-float-box { position: fixed; top: 20px; right: 20px; width: 250px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid #eee; z-index: 1000; }
         
-        .btn { width: 100%; padding: 20px; background: var(--text); color: #fff; border: none; cursor: pointer; font-size: 1rem; letter-spacing: 2px; transition: 0.4s; border-radius: 5px; }
-        .btn:hover { background: var(--gold); transform: translateY(-3px); }
-        .btn-pulse { animation: pulse 2s infinite ease-in-out; }
-
+        /* אקורדיון FAQ */
+        .faq-section { margin-top: 40px; text-align: right; width: 100%; }
+        .faq-item { border-bottom: 1px solid #eee; margin-bottom: 10px; }
+        .faq-question { width: 100%; padding: 15px; background: none; border: none; cursor: pointer; color: var(--gold); font-weight: bold; text-align: right; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 15px; color: #555; }
+        
+        /* אזור הקורס */
         #course-container { display: none; width: 95%; max-width: 1000px; flex-direction: row; gap: 40px; margin-top: 50px; opacity: 0; }
         .sidebar { width: 350px; }
-        .lesson-btn { width: 100%; padding: 20px; margin-bottom: 15px; border: 1px solid #eee; background: white; cursor: pointer; text-align: right; transition: 0.3s; font-size: 1.1rem; border-radius: 5px; }
-        .lesson-btn:hover { border-right: 5px solid var(--gold); background: #fdfdfd; padding-right: 30px; }
-        
+        .lesson-btn { width: 100%; padding: 20px; margin-bottom: 15px; border: 1px solid #eee; background: white; cursor: pointer; text-align: right; transition: 0.3s; border-radius: 5px; }
+        .lesson-btn:hover { border-right: 5px solid var(--gold); background: #fdfdfd; }
         iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         #quote-text { font-style: italic; color: #777; margin-top: 20px; font-size: 1.2rem; transition: 0.5s; }
+        .sticky-nav { position: fixed; bottom: 20px; left: 20px; background: var(--gold); color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer; z-index: 100; }
     </style>
 </head>
 <body>
@@ -48,26 +51,30 @@
 <div class="background-bubbles">
     <div class="bubble" style="width: 200px; height: 200px; left: 10%; animation-delay: 0s;"></div>
     <div class="bubble" style="width: 300px; height: 300px; left: 50%; animation-delay: 5s;"></div>
-    <div class="bubble" style="width: 150px; height: 150px; left: 80%; animation-delay: 10s;"></div>
+</div>
+
+<div class="login-float-box">
+    <p style="margin-top:0; font-size:0.9rem; font-weight:bold;">כבר נרשמת? היכנסי כאן:</p>
+    <input type="password" id="pass-code" placeholder="הקלידי קוד גישה" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; text-align: center;">
+    <button class="btn" onclick="checkPassword()" style="margin-top: 10px; padding: 10px;">היכנסי למסע</button>
 </div>
 
 <div id="landing-page" class="landing-container fade-in">
     <h1>THE SHIFT</h1>
-    <p class="subtitle">הכוח לשנות את המציאות שלך נמצא כבר אצלך בידיים. התחלה של מסע חדש, של עוצמה, של הגשמה עכשיו מעבר לפינה.</p>
+    <p>הכוח לשנות את המציאות שלך נמצא כבר אצלך בידיים.</p>
     
-    <div id="step-contact">
-        <form action="https://formspree.io/f/xzdjzneb" method="POST">
-            <input type="text" name="name" placeholder="שם מלא" required>
-            <input type="email" name="email" placeholder="אימייל" required>
-            <button type="submit" class="btn btn-pulse">שלח בקשת גישה</button>
-        </form>
-        <button class="btn" style="background:transparent; color:#555; text-decoration:underline; margin-top:10px;" onclick="showLogin()">יש לי כבר קוד גישה</button>
-    </div>
+    <form id="lead-form" action="https://formspree.io/f/xzdjzneb" method="POST" onsubmit="handleFormSubmit(event)">
+        <input type="text" name="name" placeholder="שם מלא" style="width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+        <input type="email" name="email" placeholder="אימייל" style="width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+        <button type="submit" id="submit-btn" class="btn">שלח בקשת גישה</button>
+    </form>
+    <div id="form-feedback" style="display:none; color:var(--gold); font-weight:bold; margin-top:10px;">הבקשה התקבלה! נחזור אליך בקרוב.</div>
 
-    <div id="step-login" style="display:none;">
-        <input type="password" id="pass-code" placeholder="הקלידי את קוד הגישה שלך">
-        <button class="btn btn-pulse" onclick="checkPassword()">היכנסי למסע</button>
-        <button class="btn" style="background:transparent; color:#555; text-decoration:underline; margin-top:10px;" onclick="showRegister()">חזרה</button>
+    <div class="faq-section">
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">מה זה THE SHIFT?</button>
+            <div class="faq-answer"><p>מסע אישי לשינוי תודעתי ועוצמה אישית.</p></div>
+        </div>
     </div>
 </div>
 
@@ -75,35 +82,48 @@
     <div class="sidebar">
         <h2 style="color:var(--gold);">תוכן העניינים</h2>
         <button class="lesson-btn" onclick="changeVideo('Lo2Uw67O8XY', 'הכוח לשנות את המציאות נמצא בך, זכרי להאמין בעצמך כל יום.')">הכוח לשנות את המציאות</button>
-        <button class="lesson-btn" onclick="changeVideo('st4BWNrZ7Rc', 'כל מחשבה שלך היא זרע למציאות חדשה ומרהיבה.')">אל תהיה עני</button>
+        <button class="lesson-btn" onclick="changeVideo('st4BWNrZ7Rc', 'כל מחשבה שלך היא זרע למציאות חדשה ומרהיבה.')">הסוד לבריאת מציאות</button>
     </div>
     <div style="flex-grow:1;">
         <iframe id="main-video" src="https://www.youtube.com/embed/Lo2Uw67O8XY" frameborder="0" allowfullscreen></iframe>
-        <div id="video-quote">
-            <p id="quote-text">"הכוח לשנות את המציאות נמצא בך, זכרי להאמין בעצמך כל יום."</p>
-        </div>
+        <p id="quote-text">"הכוח לשנות את המציאות נמצא בך, זכרי להאמין בעצמך כל יום."</p>
     </div>
 </div>
 
+<div class="sticky-nav" onclick="location.reload()">חזרה להתחלה</div>
+
 <script>
-    function showLogin() { document.getElementById('step-contact').style.display='none'; document.getElementById('step-login').style.display='block'; }
-    function showRegister() { document.getElementById('step-contact').style.display='block'; document.getElementById('step-login').style.display='none'; }
-    
-    document.getElementById("pass-code").addEventListener("keypress", (e) => { if (e.key === "Enter") checkPassword(); });
-    
+    // מאזין ללחיצת Enter בתיבת הסיסמה
+    document.getElementById("pass-code").addEventListener("keypress", (e) => { 
+        if (e.key === "Enter") checkPassword(); 
+    });
+
+    function toggleFAQ(element) {
+        const answer = element.nextElementSibling;
+        answer.style.maxHeight = answer.style.maxHeight ? null : answer.scrollHeight + "px";
+    }
     function checkPassword() {
         if(document.getElementById('pass-code').value === "12345") {
-            const landing = document.getElementById('landing-page');
-            const course = document.getElementById('course-container');
-            landing.classList.add('hidden');
+            document.getElementById('landing-page').classList.add('hidden');
+            document.querySelector('.login-float-box').style.display = 'none';
             setTimeout(() => {
-                landing.style.display = 'none';
-                course.style.display = 'flex';
-                setTimeout(() => { course.style.opacity = '1'; }, 50);
+                document.getElementById('landing-page').style.display = 'none';
+                document.getElementById('course-container').style.display = 'flex';
+                setTimeout(() => { document.getElementById('course-container').style.opacity = '1'; }, 50);
             }, 600);
-        } else { alert("הקוד שהזנת אינו תואם את הדרך. נסי שוב."); }
+        } else { alert("הקוד אינו תואם. נסי שוב."); }
     }
-    
+    async function handleFormSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const btn = document.getElementById('submit-btn');
+        const feedback = document.getElementById('form-feedback');
+        btn.innerText = "שולח...";
+        const formData = new FormData(form);
+        await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+        form.style.display = 'none';
+        feedback.style.display = 'block';
+    }
     function changeVideo(id, quote) { 
         document.getElementById('main-video').src = "https://www.youtube.com/embed/" + id;
         document.getElementById('quote-text').style.opacity = 0;
@@ -116,4 +136,3 @@
 
 </body>
 </html>
-
