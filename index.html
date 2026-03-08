@@ -15,22 +15,15 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
         header { background: linear-gradient(135deg, var(--primary), #34495e); color: var(--white); padding: 50px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         header h1 { margin: 0; font-size: 2.2rem; }
-        header p { opacity: 0.9; font-size: 1.1rem; margin-top: 10px; }
-        .main-container { max-width: 1150px; margin: -30px auto 40px; display: grid; grid-template-columns: 2fr 1fr; gap: 25px; padding: 0 20px; }
+        .main-container { max-width: 1150px; margin: 30px auto; display: grid; grid-template-columns: 2fr 1fr; gap: 25px; padding: 0 20px; }
         .content-area { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; border-radius: 10px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; border-radius: 10px; margin-bottom: 25px; }
         .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .sidebar { display: flex; flex-direction: column; gap: 25px; }
-        .card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .card h3 { margin-top: 0; border-bottom: 3px solid var(--accent); padding-bottom: 12px; color: var(--primary); font-size: 1.3rem; }
-        .form-group { margin-bottom: 18px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
-        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; background: #fafafa; }
-        .btn-submit { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .card h3 { margin-top: 0; border-bottom: 3px solid var(--accent); padding-bottom: 12px; color: var(--primary); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn-submit { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; }
         .btn-submit:hover { background: #219150; }
-        .lesson-list { list-style: none; padding: 0; }
-        .lesson-item { padding: 14px 10px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; }
-        .lesson-num { background: var(--primary); color: white; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-left: 12px; font-size: 0.8rem; }
         @media (max-width: 900px) { .main-container { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -47,37 +40,22 @@
             <iframe src="https://www.youtube.com/embed/Lo2Uw67O8XY" title="הרב יגאל כהן" allowfullscreen></iframe>
         </div>
         <h2>נושאי הלימוד בשיעור</h2>
+        <p>בשיעור זה נלמד כיצד המחשבה שלנו משפיעה על המציאות.</p>
         <ul>
             <li>כוחו של הביטחון העצמי והאמונה.</li>
-            <li>התמודדות עם פחדים ומחשבות מעכבות.</li>
+            <li>התמודדות עם פחדים.</li>
             <li>איך להפוך קשיים למנועי צמיחה.</li>
         </ul>
     </main>
 
-    <aside class="sidebar">
+    <aside>
         <div class="card">
             <h3>הצטרף לקהילת הלומדים</h3>
             <form action="https://formspree.io/f/xzdjzneb" method="POST">
-                <div class="form-group">
-                    <label>שם מלא</label>
-                    <input type="text" name="name" placeholder="הכנס את שמך" required>
-                </div>
-                <div class="form-group">
-                    <label>כתובת אימייל</label>
-                    <input type="email" name="email" placeholder="name@domain.com" required>
-                </div>
-                <button type="submit" class="btn-submit">שלח פרטים וקבל עדכונים</button>
+                <input type="text" name="name" placeholder="שם מלא" required>
+                <input type="email" name="email" placeholder="אימייל" required>
+                <button type="submit" class="btn-submit">שלח פרטים</button>
             </form>
-        </div>
-
-        <div class="card">
-            <h3>סילבוס הקורס</h3>
-            <ul class="lesson-list">
-                <li class="lesson-item"><span class="lesson-num">1</span> מבוא: כוחה של מחשבה</li>
-                <li class="lesson-item"><span class="lesson-num">2</span> יסודות הביטחון העצמי</li>
-                <li class="lesson-item"><span class="lesson-num">3</span> שיעור וידאו: הרב יגאל כהן</li>
-                <li class="lesson-item"><span class="lesson-num">4</span> תרגול מעשי - יצירת מציאות</li>
-            </ul>
         </div>
     </aside>
 </div>
