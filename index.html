@@ -5,89 +5,85 @@
     <title>המהפך התודעתי</title>
     <style>
         :root { 
-            --gradient: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 50%, #FF99AC 100%);
-            --bg: #1a1a2e;
+            --gradient: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%);
+            --bg: #F8F9FA;
         }
-        body { 
-            font-family: 'Assistant', sans-serif; 
-            background: linear-gradient(to bottom right, #1a1a2e, #16213e); 
-            color: #ffffff; 
-            margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; 
-        }
+        body { font-family: 'Assistant', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #2D3436; }
         
-        .main-card { 
-            max-width: 800px; width: 100%; background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); 
-            padding: 60px; border-radius: 40px; border: 2px solid rgba(255,255,255,0.1); 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5); text-align: center; 
-        }
-        
-        .btn-main { 
-            width: 100%; padding: 20px; background: var(--gradient); color: white; border: none; 
-            border-radius: 50px; cursor: pointer; font-size: 1.3rem; font-weight: 800; 
-            box-shadow: 0 10px 20px rgba(255, 94, 98, 0.3); transition: 0.4s; 
-        }
-        .btn-main:hover { transform: scale(1.05); }
+        /* דף נחיתה */
+        .main-card { max-width: 900px; width: 100%; margin: 50px auto; background: white; padding: 50px; border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center; }
+        .btn-main { background: var(--gradient); color: white; border: none; padding: 20px 40px; font-size: 1.4rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        .btn-main:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3); }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 1000; }
-        .modal-content { background: #ffffff; color: #333; padding: 40px; border-radius: 30px; width: 90%; max-width: 400px; text-align: center; }
-        
-        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 15px; border: 2px solid #ddd; box-sizing: border-box; }
-        
-        #video-section { display: none; }
-        .video-container { width: 100%; margin-top: 20px; border-radius: 25px; overflow: hidden; border: 5px solid #fff; aspect-ratio: 16/9; }
-        iframe { width: 100%; height: 100%; }
+        /* אזור הקורס */
+        #course-container { display: none; flex-direction: row; gap: 20px; }
+        .sidebar { width: 300px; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .lesson-btn { display: block; width: 100%; padding: 15px; margin-bottom: 10px; border: none; border-radius: 10px; background: #eee; cursor: pointer; text-align: right; font-weight: bold; }
+        .lesson-btn:hover { background: #FFD93D; }
+        .video-box { flex-grow: 1; aspect-ratio: 16/9; }
+        iframe { width: 100%; height: 100%; border-radius: 20px; }
+
+        /* פופ-אפ */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 40px; border-radius: 30px; width: 90%; max-width: 400px; text-align: center; }
+        input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
 <div class="main-card">
     <div id="landing-page">
-        <h1 style="font-size: 3.5rem; margin-bottom: 20px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">הכוח לשנות הכל בידיים שלך</h1>
-        <p style="font-size: 1.5rem; opacity: 0.9; margin-bottom: 40px;">מסע של אמונה, עוצמה פנימית ופריצת גבולות.</p>
-        <button class="btn-main" onclick="openModal()">בוא נתחיל במסע!</button>
+        <div style="font-size: 4rem;">✨</div>
+        <h1 style="font-size: 2.8rem;">המסע שלך לחיים של משמעות מתחיל כאן!</h1>
+        <p style="font-size: 1.3rem; opacity: 0.8; margin-bottom: 40px;">מוכנה לגלות את העוצמות שטמונות בך? בואי נצא לדרך.</p>
+        <button class="btn-main" onclick="document.getElementById('myModal').style.display='flex'">הצטרפי למסע!</button>
     </div>
 
-    <div id="video-section">
-        <h2 style="font-size: 2rem;">צפייה נעימה!</h2>
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/Lo2Uw67O8XY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div id="course-container">
+        <div class="sidebar">
+            <h3>תוכן העניינים</h3>
+            <button class="lesson-btn" onclick="changeVideo('Lo2Uw67O8XY')">הכוח לשנות את המציאות שלך נמצא כבר אצלך בידיים</button>
+            <button class="lesson-btn" onclick="changeVideo('st4BWNrZ7Rc')">הסוד לבריאת מציאות שבאמת רצית</button>
         </div>
-        <button class="btn-main" style="margin-top: 30px; background: #22c55e;" onclick="location.reload()">הבא: לפרק הבא &rarr;</button>
+        <div class="video-box">
+            <iframe id="main-video" src="https://www.youtube.com/embed/Lo2Uw67O8XY" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
 </div>
 
 <div id="myModal" class="modal">
     <div class="modal-content">
-        <h2 id="modal-title">הצטרף למסע</h2>
+        <h2 id="modal-title">ברוכה הבאה!</h2>
         <div id="step-contact">
+            <p>השאירי פרטים ונשלח לך קוד גישה</p>
             <form action="https://formspree.io/f/xzdjzneb" method="POST">
                 <input type="text" name="name" placeholder="שם מלא" required>
                 <input type="email" name="email" placeholder="אימייל" required>
-                <button type="submit" class="btn-main">שלח בקשת גישה</button>
+                <button type="submit" class="btn-main" style="width:100%; font-size:1rem; padding:15px;">שלחי בקשה</button>
             </form>
-            <button class="btn-main" style="background:#666; margin-top:10px;" onclick="showLogin()">יש לי כבר קוד!</button>
+            <button class="btn-main" style="background:#ccc; margin-top:10px; width:100%; font-size:1rem; padding:15px;" onclick="showLogin()">יש לי כבר קוד</button>
         </div>
         <div id="step-login" style="display:none;">
-            <input type="password" id="pass-code" placeholder="הכנס את הקוד הסודי">
-            <button class="btn-main" onclick="checkPassword()">צפייה בשיעור</button>
+            <input type="password" id="pass-code" placeholder="הקלידי קוד">
+            <button class="btn-main" onclick="checkPassword()" style="width:100%; font-size:1rem; padding:15px;">לצפייה בשיעור</button>
         </div>
     </div>
 </div>
 
 <script>
-    function openModal() { document.getElementById('myModal').style.display = 'flex'; }
     function showLogin() { 
         document.getElementById('step-contact').style.display = 'none'; 
         document.getElementById('step-login').style.display = 'block'; 
-        document.getElementById('modal-title').innerText = "הזן קוד גישה";
+        document.getElementById('modal-title').innerText = "הקלידי קוד גישה";
     }
     function checkPassword() {
-        if (document.getElementById('pass-code').value == "12345") {
+        if (document.getElementById('pass-code').value == "אביגיל") {
             document.getElementById('myModal').style.display = 'none';
             document.getElementById('landing-page').style.display = 'none';
-            document.getElementById('video-section').style.display = 'block';
+            document.getElementById('course-container').style.display = 'flex';
         } else { alert("קוד שגוי"); }
     }
+    function changeVideo(id) { document.getElementById('main-video').src = "https://www.youtube.com/embed/" + id; }
 </script>
 </body>
 </html>
