@@ -2,88 +2,117 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>המהפך התודעתי</title>
+    <title>THE SHIFT | המהפך התודעתי</title>
     <style>
-        :root { 
-            --gradient: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%);
-            --bg: #F8F9FA;
-        }
-        body { font-family: 'Assistant', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #2D3436; }
+        @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&display=swap');
+        :root { --gold: #c5a059; --bg: #ffffff; --text: #1a1a1a; }
         
-        /* דף נחיתה */
-        .main-card { max-width: 900px; width: 100%; margin: 50px auto; background: white; padding: 50px; border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center; }
-        .btn-main { background: var(--gradient); color: white; border: none; padding: 20px 40px; font-size: 1.4rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; }
-        .btn-main:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3); }
+        body { margin: 0; font-family: 'Assistant', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-x: hidden; }
+        
+        /* רקע בועות דינמי */
+        .background-bubbles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .bubble { position: absolute; bottom: -100px; background: rgba(197, 160, 89, 0.1); border-radius: 50%; animation: float 15s infinite ease-in-out; }
+        @keyframes float { 0% { transform: translateY(0) scale(1); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
 
-        /* אזור הקורס */
-        #course-container { display: none; flex-direction: row; gap: 20px; }
-        .sidebar { width: 300px; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .lesson-btn { display: block; width: 100%; padding: 15px; margin-bottom: 10px; border: none; border-radius: 10px; background: #eee; cursor: pointer; text-align: right; font-weight: bold; }
-        .lesson-btn:hover { background: #FFD93D; }
-        .video-box { flex-grow: 1; aspect-ratio: 16/9; }
-        iframe { width: 100%; height: 100%; border-radius: 20px; }
+        /* אנימציות גלובליות */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        
+        .fade-in { animation: fadeIn 1s ease-out forwards; }
+        .transition-fade { transition: opacity 0.6s ease-in-out; opacity: 1; }
+        .hidden { opacity: 0; pointer-events: none; }
 
-        /* פופ-אפ */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
-        .modal-content { background: white; padding: 40px; border-radius: 30px; width: 90%; max-width: 400px; text-align: center; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        .landing-container { width: 90%; max-width: 500px; text-align: center; }
+        h1 { font-size: 3rem; color: var(--gold); margin-bottom: 10px; transition: all 0.4s ease; cursor: default; }
+        h1:hover { text-shadow: 0 0 20px rgba(197, 160, 89, 0.6), 0 0 40px rgba(197, 160, 89, 0.3); transform: scale(1.02); }
+        .subtitle { font-size: 1.2rem; font-weight: 300; margin-bottom: 40px; color: #555; }
+        
+        input { width: 100%; padding: 20px; margin-bottom: 20px; border: 1px solid #eee; border-radius: 5px; text-align: center; font-size: 1.1rem; box-sizing: border-box; transition: 0.3s; }
+        input:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 10px rgba(197, 160, 89, 0.2); }
+        
+        .btn { width: 100%; padding: 20px; background: var(--text); color: #fff; border: none; cursor: pointer; font-size: 1rem; letter-spacing: 2px; transition: 0.4s; border-radius: 5px; }
+        .btn:hover { background: var(--gold); transform: translateY(-3px); }
+        .btn-pulse { animation: pulse 2s infinite ease-in-out; }
+
+        #course-container { display: none; width: 95%; max-width: 1000px; flex-direction: row; gap: 40px; margin-top: 50px; opacity: 0; }
+        .sidebar { width: 350px; }
+        .lesson-btn { width: 100%; padding: 20px; margin-bottom: 15px; border: 1px solid #eee; background: white; cursor: pointer; text-align: right; transition: 0.3s; font-size: 1.1rem; border-radius: 5px; }
+        .lesson-btn:hover { border-right: 5px solid var(--gold); background: #fdfdfd; padding-right: 30px; }
+        
+        iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        #quote-text { font-style: italic; color: #777; margin-top: 20px; font-size: 1.2rem; transition: 0.5s; }
     </style>
 </head>
 <body>
 
-<div class="main-card">
-    <div id="landing-page">
-        <div style="font-size: 4rem;">✨</div>
-        <h1 style="font-size: 2.8rem;">המסע שלך לחיים של משמעות מתחיל כאן!</h1>
-        <p style="font-size: 1.3rem; opacity: 0.8; margin-bottom: 40px;">מוכנה לגלות את העוצמות שטמונות בך? בואי נצא לדרך.</p>
-        <button class="btn-main" onclick="document.getElementById('myModal').style.display='flex'">הצטרפי למסע!</button>
+<div class="background-bubbles">
+    <div class="bubble" style="width: 200px; height: 200px; left: 10%; animation-delay: 0s;"></div>
+    <div class="bubble" style="width: 300px; height: 300px; left: 50%; animation-delay: 5s;"></div>
+    <div class="bubble" style="width: 150px; height: 150px; left: 80%; animation-delay: 10s;"></div>
+</div>
+
+<div id="landing-page" class="landing-container fade-in">
+    <h1>THE SHIFT</h1>
+    <p class="subtitle">הכוח לשנות את המציאות שלך נמצא כבר אצלך בידיים. התחלה של מסע חדש, של עוצמה, של הגשמה.</p>
+    
+    <div id="step-contact">
+        <form action="https://formspree.io/f/xzdjzneb" method="POST">
+            <input type="text" name="name" placeholder="שם מלא" required>
+            <input type="email" name="email" placeholder="אימייל" required>
+            <button type="submit" class="btn btn-pulse">שלח בקשת גישה</button>
+        </form>
+        <button class="btn" style="background:transparent; color:#555; text-decoration:underline; margin-top:10px;" onclick="showLogin()">יש לי כבר קוד גישה</button>
     </div>
 
-    <div id="course-container">
-        <div class="sidebar">
-            <h3>תוכן העניינים</h3>
-            <button class="lesson-btn" onclick="changeVideo('Lo2Uw67O8XY')">הכוח לשנות את המציאות שלך נמצא כבר אצלך בידיים</button>
-            <button class="lesson-btn" onclick="changeVideo('st4BWNrZ7Rc')">הסוד לבריאת מציאות שבאמת רצית</button>
-        </div>
-        <div class="video-box">
-            <iframe id="main-video" src="https://www.youtube.com/embed/Lo2Uw67O8XY" frameborder="0" allowfullscreen></iframe>
-        </div>
+    <div id="step-login" style="display:none;">
+        <input type="password" id="pass-code" placeholder="הקלידי את קוד הגישה שלך">
+        <button class="btn btn-pulse" onclick="checkPassword()">היכנסי למסע</button>
+        <button class="btn" style="background:transparent; color:#555; text-decoration:underline; margin-top:10px;" onclick="showRegister()">חזרה</button>
     </div>
 </div>
 
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <h2 id="modal-title">ברוכה הבאה!</h2>
-        <div id="step-contact">
-            <p>השאירי פרטים ונשלח לך קוד גישה</p>
-            <form action="https://formspree.io/f/xzdjzneb" method="POST">
-                <input type="text" name="name" placeholder="שם מלא" required>
-                <input type="email" name="email" placeholder="אימייל" required>
-                <button type="submit" class="btn-main" style="width:100%; font-size:1rem; padding:15px;">שלחי בקשה</button>
-            </form>
-            <button class="btn-main" style="background:#ccc; margin-top:10px; width:100%; font-size:1rem; padding:15px;" onclick="showLogin()">יש לי כבר קוד</button>
-        </div>
-        <div id="step-login" style="display:none;">
-            <input type="password" id="pass-code" placeholder="הקלידי קוד">
-            <button class="btn-main" onclick="checkPassword()" style="width:100%; font-size:1rem; padding:15px;">לצפייה בשיעור</button>
+<div id="course-container" class="transition-fade">
+    <div class="sidebar">
+        <h2 style="color:var(--gold);">תוכן העניינים</h2>
+        <button class="lesson-btn" onclick="changeVideo('Lo2Uw67O8XY', 'הכוח לשנות את המציאות נמצא בך, זכרי להאמין בעצמך כל יום.')">הכוח לשנות את המציאות</button>
+        <button class="lesson-btn" onclick="changeVideo('st4BWNrZ7Rc', 'כל מחשבה שלך היא זרע למציאות חדשה ומרהיבה.')">הסוד לבריאת מציאות</button>
+    </div>
+    <div style="flex-grow:1;">
+        <iframe id="main-video" src="https://www.youtube.com/embed/Lo2Uw67O8XY" frameborder="0" allowfullscreen></iframe>
+        <div id="video-quote">
+            <p id="quote-text">"הכוח לשנות את המציאות נמצא בך, זכרי להאמין בעצמך כל יום."</p>
         </div>
     </div>
 </div>
 
 <script>
-    function showLogin() { 
-        document.getElementById('step-contact').style.display = 'none'; 
-        document.getElementById('step-login').style.display = 'block'; 
-        document.getElementById('modal-title').innerText = "הקלידי קוד גישה";
-    }
+    function showLogin() { document.getElementById('step-contact').style.display='none'; document.getElementById('step-login').style.display='block'; }
+    function showRegister() { document.getElementById('step-contact').style.display='block'; document.getElementById('step-login').style.display='none'; }
+    
+    document.getElementById("pass-code").addEventListener("keypress", (e) => { if (e.key === "Enter") checkPassword(); });
+    
     function checkPassword() {
-        if (document.getElementById('pass-code').value == "אביגיל") {
-            document.getElementById('myModal').style.display = 'none';
-            document.getElementById('landing-page').style.display = 'none';
-            document.getElementById('course-container').style.display = 'flex';
-        } else { alert("קוד שגוי"); }
+        if(document.getElementById('pass-code').value === "12345") {
+            const landing = document.getElementById('landing-page');
+            const course = document.getElementById('course-container');
+            landing.classList.add('hidden');
+            setTimeout(() => {
+                landing.style.display = 'none';
+                course.style.display = 'flex';
+                setTimeout(() => { course.style.opacity = '1'; }, 50);
+            }, 600);
+        } else { alert("הקוד שהזנת אינו תואם את הדרך. נסי שוב."); }
     }
-    function changeVideo(id) { document.getElementById('main-video').src = "https://www.youtube.com/embed/" + id; }
+    
+    function changeVideo(id, quote) { 
+        document.getElementById('main-video').src = "https://www.youtube.com/embed/" + id;
+        document.getElementById('quote-text').style.opacity = 0;
+        setTimeout(() => {
+            document.getElementById('quote-text').innerText = quote;
+            document.getElementById('quote-text').style.opacity = 1;
+        }, 300);
+    }
 </script>
+
 </body>
 </html>
